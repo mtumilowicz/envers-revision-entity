@@ -16,6 +16,6 @@ public class CustomRevisionEntityListener implements RevisionListener {
     public void newRevision(Object revisionEntity) {
         Preconditions.checkArgument(revisionEntity instanceof CustomRevisionEntity);
         CustomRevisionEntity rev = (CustomRevisionEntity) revisionEntity;
-        rev.setUserName(UserInfoMock.login);
+        rev.setLogin(UserInfoMock.login);
     }
 }

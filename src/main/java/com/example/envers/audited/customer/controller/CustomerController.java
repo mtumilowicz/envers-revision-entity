@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerController {
     private final CustomerService service;
-    
+
     @PostMapping("customers")
     public void save(@RequestBody CustomerDto dto) {
         service.save(dto);
@@ -35,14 +35,24 @@ public class CustomerController {
     public Customer findPersonById(@PathVariable("id") Long id) {
         return service.findById(id).orElse(null);
     }
-    
+
     @GetMapping("customers/{id}/history")
     public List<Customer> getHistoryById(@PathVariable("id") Long id) {
         return service.getHistory(id);
     }
-    
+
     @DeleteMapping("customers/{id}")
     public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
+    }
+
+    @GetMapping("customers/{id}/deleted/by/{login}")
+    public boolean wasEntityDeletedBy(@PathVariable("id") Long id, @PathVariable("login") String login) {
+        return service.wasEntityDeletedBy(id, login);
+    }
+
+    @GetMapping("customers/created/by/{login}")
+    public List<Number> allEntitiesCreatedBy(@PathVariable("login") String login) {
+        return service.allEntitiesCreatedBy(login);
     }
 }

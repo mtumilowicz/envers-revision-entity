@@ -47,4 +47,12 @@ public class CustomerService {
     public List<Customer> getHistory(@NotNull Long id) {
         return historyRepository.getHistory(id);
     }
+    
+    public boolean wasEntityDeletedBy(@NotNull Long id, @NotNull String login) {
+        return historyRepository.wasEntityDeletedBy(id, login);
+    }
+    
+    public List<Number> allEntitiesCreatedBy(@NotNull String login) {
+        return historyRepository.allEntitiesCreatedBy(login);
+    }
 }

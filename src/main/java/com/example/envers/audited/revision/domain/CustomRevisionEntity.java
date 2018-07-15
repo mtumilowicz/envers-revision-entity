@@ -18,5 +18,5 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class CustomRevisionEntity extends DefaultRevisionEntity {
-    private String userName;
+    private String login;
 }
