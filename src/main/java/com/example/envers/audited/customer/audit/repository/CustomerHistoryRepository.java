@@ -37,7 +37,8 @@ public class CustomerHistoryRepository {
     public boolean wasEntityDeletedBy(@NotNull Long id, @NotNull String login) {
         return CollectionUtils.isNotEmpty(customerAuditReader.get()
                 .createQuery()
-                .forRevisionsOfEntity(Customer.class, true)
+                .forRevisionsOfEntity(Customer.class, true,true)
+                .addProjection(AuditEntity.id())
                 .add(AuditEntity.id().eq(id))
                 .add(AuditEntity.revisionType().eq(RevisionType.DEL))
                 .add(AuditEntity.revisionProperty("login").eq(login))
@@ -47,7 +48,7 @@ public class CustomerHistoryRepository {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Number> allEntitiesCreatedBy(@NotNull String login) {
+    public List<Number> allIdsOfCustomersCreatedBy(@NotNull String login) {
         AuditReader auditReader = customerAuditReader.get();
 
         return ListUtils.emptyIfNull(auditReader

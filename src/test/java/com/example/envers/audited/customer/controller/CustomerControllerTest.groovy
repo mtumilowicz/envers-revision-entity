@@ -98,9 +98,9 @@ class CustomerControllerTest extends Specification {
 
     def "allEntitiesCreatedBy"() {
         when:
-        controller.allEntitiesCreatedBy( "a")
+        controller.allIdsOfCustomersCreatedBy( "a")
 
         then:
-        1 * service.allEntitiesCreatedBy("a")
+        1 * service.allIdsOfCustomersCreatedBy("a")
     }
 }
