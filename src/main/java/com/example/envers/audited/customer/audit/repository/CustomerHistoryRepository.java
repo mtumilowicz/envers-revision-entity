@@ -37,7 +37,7 @@ public class CustomerHistoryRepository {
     public boolean wasEntityDeletedBy(@NotNull Long id, @NotNull String login) {
         return CollectionUtils.isNotEmpty(customerAuditReader.get()
                 .createQuery()
-                .forRevisionsOfEntity(Customer.class, true,true)
+                .forRevisionsOfEntity(Customer.class,true)
                 .addProjection(AuditEntity.id())
                 .add(AuditEntity.id().eq(id))
                 .add(AuditEntity.revisionType().eq(RevisionType.DEL))
