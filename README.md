@@ -28,5 +28,5 @@ The implementation should be stateless and thread-safe. The listener then has to
 entity by specifying it as a parameter to the `@RevisionEntity` annotation.
 
 # project details
-* `RevisionEntity`: `com.example.envers.audited.revision.domain.RevisionEntity`
-* `RevisionListener`: `com.example.envers.audited.revision.listener.RevisionEntityListener`
+* `RevisionEntity`: `com.example.envers.audited.revision.domain.CustomRevisionEntity`
+* `RevisionListener`: `com.example.envers.audited.revision.listener.CustomRevisionEntityListener`
