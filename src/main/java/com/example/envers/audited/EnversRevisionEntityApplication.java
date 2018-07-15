@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnversAuditedApplication {
+public class EnversRevisionEntityApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EnversAuditedApplication.class, args);
+        SpringApplication.run(EnversRevisionEntityApplication.class, args);
     }
 }
