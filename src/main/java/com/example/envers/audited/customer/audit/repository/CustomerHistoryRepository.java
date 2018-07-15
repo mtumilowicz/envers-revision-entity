@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @AllArgsConstructor
 public class CustomerHistoryRepository {
-    
+
     private final CustomerAuditReader customerAuditReader;
 
     public List<Customer> getHistory(@NotNull Long id) {
@@ -33,11 +33,11 @@ public class CustomerHistoryRepository {
                 .map(rev -> auditReader.find(Customer.class, id, rev))
                 .collect(Collectors.toList());
     }
-    
+
     public boolean wasEntityDeletedBy(@NotNull Long id, @NotNull String login) {
         return CollectionUtils.isNotEmpty(customerAuditReader.get()
                 .createQuery()
-                .forRevisionsOfEntity(Customer.class,true)
+                .forRevisionsOfEntity(Customer.class, true)
                 .addProjection(AuditEntity.id())
                 .add(AuditEntity.id().eq(id))
                 .add(AuditEntity.revisionType().eq(RevisionType.DEL))
