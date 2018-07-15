@@ -87,4 +87,20 @@ class CustomerControllerTest extends Specification {
         then:
         1 * service.deleteById(1)
     }
+    
+    def "wasEntityDeletedBy"() {
+        when:
+        controller.wasEntityDeletedBy(1, "a")
+
+        then:
+        1 * service.wasEntityDeletedBy(1, "a")
+    }
+
+    def "allEntitiesCreatedBy"() {
+        when:
+        controller.allEntitiesCreatedBy( "a")
+
+        then:
+        1 * service.allEntitiesCreatedBy("a")
+    }
 }

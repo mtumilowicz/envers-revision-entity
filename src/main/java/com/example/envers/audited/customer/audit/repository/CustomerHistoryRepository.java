@@ -3,13 +3,13 @@ package com.example.envers.audited.customer.audit.repository;
 import com.example.envers.audited.customer.audit.CustomerAuditReader;
 import com.example.envers.audited.customer.domain.Customer;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -35,7 +35,7 @@ public class CustomerHistoryRepository {
     }
     
     public boolean wasEntityDeletedBy(@NotNull Long id, @NotNull String login) {
-        return !CollectionUtils.isEmpty(customerAuditReader.get()
+        return CollectionUtils.isNotEmpty(customerAuditReader.get()
                 .createQuery()
                 .forRevisionsOfEntity(Customer.class, true)
                 .add(AuditEntity.id().eq(id))

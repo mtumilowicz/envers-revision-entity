@@ -81,6 +81,23 @@ public class CustomerControllerHealthCheck {
         restTemplate.delete(createURLWithPort("/customers/1"));
     }
 
+    @Test
+    public void wasEntityDeletedBy() {
+        assertThat(restTemplate
+                        .getForEntity(createURLWithPort("customers/1/deleted/by/mtumilowicz"),
+                                Boolean.class)
+                        .getStatusCode(),
+                is(HttpStatus.OK));
+    }
+
+    @Test
+    public void allEntitiesCreatedBy() {
+        assertThat(restTemplate
+                .getForEntity(createURLWithPort("customers/created/by/mtumilowicz"), 
+                        List.class)
+                .getStatusCode(), 
+                is(HttpStatus.OK));
+    }
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;

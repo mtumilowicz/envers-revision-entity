@@ -3,6 +3,7 @@ package com.example.envers.audited.customer.controller;
 import com.example.envers.audited.customer.domain.Customer;
 import com.example.envers.audited.customer.domain.CustomerDto;
 import com.example.envers.audited.customer.repository.CustomerRepository;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -113,7 +115,7 @@ public class CustomerControllerIntegrationTest {
                 .firstName("editedFirstName")
                 .lastName("editedLastName")
                 .build());
-        
+
 //        then
         assertThat(repository.findAll().size(), is(0));
     }
@@ -170,7 +172,7 @@ public class CustomerControllerIntegrationTest {
 
 //        and
         customer.setFirstName("firstNameEdited");
-        
+
 //        and
         Customer expected_customerHistory1 = Customer.builder()
                 .id(id)
@@ -183,10 +185,10 @@ public class CustomerControllerIntegrationTest {
                 .firstName("firstNameEdited")
                 .lastName("lastName")
                 .build();
-        
+
 //        and
         List<Customer> expected_history = Arrays.asList(expected_customerHistory1, expected_customerHistory2);
-        
+
 //        and
         repository.save(customer);
 
@@ -200,11 +202,11 @@ public class CustomerControllerIntegrationTest {
                         HttpMethod.GET,
                         null,
                         typeRef).getBody();
-        
+
 //        then
         assertThat(customerHistory, is(expected_history));
     }
-    
+
     @Test
     public void deleteById() {
 //        given
@@ -214,12 +216,56 @@ public class CustomerControllerIntegrationTest {
                 .build());
 
         Long id = customer.getId();
-        
+
 //        when
         restTemplate.delete(createURLWithPort("/customers/" + id));
-        
+
 //        then
         assertThat(repository.findAll().size(), is(0));
+    }
+
+    @Test
+    public void wasEntityDeletedBy_found() {
+//        given
+        Customer customer = repository.save(Customer.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .build());
+
+        Long id = customer.getId();
+
+        repository.deleteById(id);
+
+//        when
+        Boolean deletedBy = restTemplate.getForObject(createURLWithPort("customers/" + id + "/deleted/by/mtumilowicz"), Boolean.class);
+
+//        then
+        assertTrue(deletedBy);
+    }
+
+    @Test
+    public void wasEntityDeletedBy_notFound() {
+//        when
+        Boolean deletedBy = restTemplate.getForObject(createURLWithPort("customers/" + -1 + "/deleted/by/mtumilowicz"), Boolean.class);
+
+//        then
+        assertFalse(deletedBy);
+    }
+
+    @Test
+    public void allEntitiesCreatedBy() {
+//        given
+        ParameterizedTypeReference<List<Number>> typeRef = new ParameterizedTypeReference<List<Number>>() {};
+        
+//        when
+        List<Number> ids = restTemplate.exchange(
+                createURLWithPort("customers/created/by/mtumilowicz"),
+                HttpMethod.GET,
+                null,
+                typeRef).getBody();
+
+//        then
+        assertTrue(CollectionUtils.isNotEmpty(ids));
     }
 
 

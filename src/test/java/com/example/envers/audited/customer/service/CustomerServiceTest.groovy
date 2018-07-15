@@ -176,4 +176,32 @@ class CustomerServiceTest extends Specification {
         then:
         1 * repository.deleteById(1)
     }
+
+    def "test wasEntityDeletedBy"() {
+        given:
+        def historyRepository = Mock(CustomerHistoryRepository)
+
+        and:
+        def service = new CustomerService(Mock(CustomerRepository), historyRepository)
+
+        when:
+        service.wasEntityDeletedBy(1, "a")
+
+        then:
+        1 * historyRepository.wasEntityDeletedBy(1, "a")
+    }
+
+    def "test allEntitiesCreatedBy"() {
+        given:
+        def historyRepository = Mock(CustomerHistoryRepository)
+
+        and:
+        def service = new CustomerService(Mock(CustomerRepository), historyRepository)
+
+        when:
+        service.wasEntityDeletedBy(1, "a")
+
+        then:
+        1 * historyRepository.wasEntityDeletedBy(1, "a")
+    }
 }
