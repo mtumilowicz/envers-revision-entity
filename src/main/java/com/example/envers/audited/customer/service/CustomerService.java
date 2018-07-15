@@ -52,7 +52,7 @@ public class CustomerService {
         return historyRepository.wasEntityDeletedBy(id, login);
     }
     
-    public List<Number> allIdsOfCustomersCreatedBy(@NotNull String login) {
+    public List<Customer> allIdsOfCustomersCreatedBy(@NotNull String login) {
         return historyRepository.allIdsOfCustomersCreatedBy(login);
     }
 }

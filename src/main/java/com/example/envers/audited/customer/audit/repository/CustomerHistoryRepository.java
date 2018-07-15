@@ -48,13 +48,12 @@ public class CustomerHistoryRepository {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Number> allIdsOfCustomersCreatedBy(@NotNull String login) {
+    public List<Customer> allIdsOfCustomersCreatedBy(@NotNull String login) {
         AuditReader auditReader = customerAuditReader.get();
 
         return ListUtils.emptyIfNull(auditReader
                 .createQuery()
-                .forRevisionsOfEntity(Customer.class, false)
-                .addProjection(AuditEntity.id())
+                .forRevisionsOfEntity(Customer.class, true,false)
                 .add(AuditEntity.revisionType().eq(RevisionType.ADD))
                 .add(AuditEntity.revisionProperty("login").eq(login))
                 .getResultList());

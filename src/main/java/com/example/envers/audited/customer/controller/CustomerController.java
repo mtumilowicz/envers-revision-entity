@@ -52,7 +52,7 @@ public class CustomerController {
     }
 
     @GetMapping("customers/created/by/{login}")
-    public List<Number> allIdsOfCustomersCreatedBy(@PathVariable("login") String login) {
+    public List<Customer> allIdsOfCustomersCreatedBy(@PathVariable("login") String login) {
         return service.allIdsOfCustomersCreatedBy(login);
     }
 }

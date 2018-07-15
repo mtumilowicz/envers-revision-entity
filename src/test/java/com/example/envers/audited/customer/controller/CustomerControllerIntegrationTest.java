@@ -255,10 +255,10 @@ public class CustomerControllerIntegrationTest {
     @Test
     public void allEntitiesCreatedBy() {
 //        given
-        ParameterizedTypeReference<List<Number>> typeRef = new ParameterizedTypeReference<List<Number>>() {};
+        ParameterizedTypeReference<List<Customer>> typeRef = new ParameterizedTypeReference<List<Customer>>() {};
         
 //        when
-        List<Number> ids = restTemplate.exchange(
+        List<Customer> ids = restTemplate.exchange(
                 createURLWithPort("customers/created/by/mtumilowicz"),
                 HttpMethod.GET,
                 null,
