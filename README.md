@@ -1,6 +1,9 @@
 # envers-revision-entity
 _Reference_: [Revision log jboss doc](https://docs.jboss.org/hibernate/envers/3.6/reference/en-US/html/revisionlog.html)  
-_Reference_: [RevisionEntity tutorial](https://www.thoughts-on-java.org/hibernate-envers-extend-standard-revision/)
+_Reference_: [RevisionEntity tutorial](https://www.thoughts-on-java.org/hibernate-envers-extend-standard-revision/)  
+_Reference_: [Advanced querying envers](https://www.thoughts-on-java.org/hibernate-envers-query-data-audit-log/)  
+_Reference_: [AuditQueryCreator doc](http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/envers/query/AuditQueryCreator.html)  
+_Reference_: [AuditQuery doc](http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/envers/query/AuditQuery.html)
 
 # preface
 [Take a look at pt.1](https://github.com/mtumilowicz/envers-audited)
@@ -26,6 +29,29 @@ To fill the entity with additional data, you'll need to implement the `org.jboss
 Its `newRevision` method will be called when a new revision is created, before persisting the revision entity. 
 The implementation should be stateless and thread-safe. The listener then has to be attached to the revisions 
 entity by specifying it as a parameter to the `@RevisionEntity` annotation.
+
+# manual
+We give two examples of creating queries (`com.example.envers.audited.customer.audit.repository.CustomerHistoryRepository`):
+* `wasEntityDeletedBy`
+    ```
+    customerAuditReader.get()
+                    .createQuery()
+                    .forRevisionsOfEntity(Customer.class, true) // include delete
+                    .addProjection(AuditEntity.id()) // maps to ids
+                    .add(AuditEntity.id().eq(id)) // take revisions of entity with id = id
+                    .add(AuditEntity.revisionType().eq(RevisionType.DEL)) // only DEL
+                    .add(AuditEntity.revisionProperty("login").eq(login)) // only by login
+                    .getResultList()
+    ```
+* `allIdsOfCustomersCreatedBy`
+    ```
+    auditReader
+                    .createQuery()
+                    .forRevisionsOfEntity(Customer.class, true, false) // full entities, not include deleted
+                    .add(AuditEntity.revisionType().eq(RevisionType.ADD)) // only ADD
+                    .add(AuditEntity.revisionProperty("login").eq(login)) // only by login
+                    .getResultList()
+    ```
 
 # project details
 * `RevisionEntity`: `com.example.envers.audited.revision.domain.CustomRevisionEntity`
