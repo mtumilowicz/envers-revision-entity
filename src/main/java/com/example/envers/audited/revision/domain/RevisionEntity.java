@@ -1,11 +1,10 @@
-package com.example.envers.audited.customer.audit.domain;
+package com.example.envers.audited.revision.domain;
 
-import com.example.envers.audited.customer.audit.listener.CustomerRevisionListener;
+import com.example.envers.audited.revision.listener.RevisionEntityListener;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.envers.DefaultRevisionEntity;
-import org.hibernate.envers.RevisionEntity;
 
 import javax.persistence.Entity;
 
@@ -13,10 +12,10 @@ import javax.persistence.Entity;
  * Created by mtumilowicz on 2018-07-15.
  */
 @Entity
-@RevisionEntity(CustomerRevisionListener.class)
+@org.hibernate.envers.RevisionEntity(RevisionEntityListener.class)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CustomerRevision extends DefaultRevisionEntity {
+public class RevisionEntity extends DefaultRevisionEntity {
     private String userName;
 }
