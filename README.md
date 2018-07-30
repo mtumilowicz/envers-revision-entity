@@ -31,7 +31,7 @@ The implementation should be stateless and thread-safe. The listener then has to
 entity by specifying it as a parameter to the `@RevisionEntity` annotation.
 
 # manual
-We give two examples of creating queries (`com.example.envers.audited.customer.audit.repository.CustomerHistoryRepository`):
+We give two examples of creating queries (`com.example.envers.audited.domain.customer.history.repository.CustomerHistoryRepository`):
 * `wasEntityDeletedBy`
     ```
     customerAuditReader.get()
@@ -54,5 +54,5 @@ We give two examples of creating queries (`com.example.envers.audited.customer.a
     ```
 
 # project details
-* `RevisionEntity`: `com.example.envers.audited.revision.domain.CustomRevisionEntity`
-* `RevisionListener`: `com.example.envers.audited.revision.listener.CustomRevisionEntityListener`
+* `RevisionEntity`: `com.example.envers.audited.domain.customer.model.CustomRevisionEntity`
+* `RevisionListener`: `com.example.envers.audited.infrastructure.revision.listener.CustomRevisionEntityListener`
