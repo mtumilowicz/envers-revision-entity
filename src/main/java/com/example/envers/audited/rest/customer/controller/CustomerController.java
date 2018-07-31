@@ -12,46 +12,47 @@ import java.util.List;
  * Created by mtumilowicz on 2018-07-13.
  */
 @RestController
+@RequestMapping("customers")
 @AllArgsConstructor
 public class CustomerController {
     private final CustomerService service;
 
-    @PostMapping("customers")
+    @PostMapping
     public void save(@RequestBody CustomerDto dto) {
         service.save(dto);
     }
 
-    @GetMapping("customers")
+    @GetMapping
     public List<Customer> findAll() {
         return service.findAll();
     }
 
-    @PutMapping("customers/{id}")
+    @PutMapping("{id}")
     public void update(@RequestBody CustomerDto dto, @PathVariable("id") Long id) {
         service.update(dto, id);
     }
 
-    @GetMapping("customers/{id}")
+    @GetMapping("{id}")
     public Customer findPersonById(@PathVariable("id") Long id) {
         return service.findById(id).orElse(null);
     }
 
-    @GetMapping("customers/{id}/history")
+    @GetMapping("{id}/history")
     public List<Customer> getHistoryById(@PathVariable("id") Long id) {
         return service.getHistory(id);
     }
 
-    @DeleteMapping("customers/{id}")
+    @DeleteMapping("{id}")
     public void deleteById(@PathVariable("id") Long id) {
         service.deleteById(id);
     }
 
-    @GetMapping("customers/{id}/deleted/by/{login}")
+    @GetMapping("{id}/deleted/by/{login}")
     public boolean wasEntityDeletedBy(@PathVariable("id") Long id, @PathVariable("login") String login) {
         return service.wasEntityDeletedBy(id, login);
     }
 
-    @GetMapping("customers/created/by/{login}")
+    @GetMapping("created/by/{login}")
     public List<Customer> allIdsOfCustomersCreatedBy(@PathVariable("login") String login) {
         return service.allIdsOfCustomersCreatedBy(login);
     }
