@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/envers-revision-entity.svg?branch=master)](https://travis-ci.com/mtumilowicz/envers-revision-entity)
+
 # envers-revision-entity
 _Reference_: [Revision log jboss doc](https://docs.jboss.org/hibernate/envers/3.6/reference/en-US/html/revisionlog.html)  
 _Reference_: [RevisionEntity tutorial](https://www.thoughts-on-java.org/hibernate-envers-extend-standard-revision/)  
