@@ -40,7 +40,7 @@ entity by specifying it as a parameter to the `@RevisionEntity` annotation.
 
 * Audit table
 
-    |ID   |REV   |REVTYPE   | CUSTOM FIELDS   |
+    |ID OF SOURCE  |REV (ID FROM REVENTITY)   |REVTYPE   | CUSTOM FIELDS   |
     |---|---|---|---|
     |...   |...   |...   |...   |
 
