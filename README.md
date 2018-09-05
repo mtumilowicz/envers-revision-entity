@@ -32,6 +32,18 @@ Its `newRevision` method will be called when a new revision is created, before p
 The implementation should be stateless and thread-safe. The listener then has to be attached to the revisions 
 entity by specifying it as a parameter to the `@RevisionEntity` annotation.
 
+* RevisionEntity
+
+    |ID   |TIMESTAMP   |ADDITIONAL FIELD (ex. LOGIN)   |
+    |---|---|---|
+    |...   |...   |...   |
+
+* Audit table
+
+    |ID   |REV   |REVTYPE   | CUSTOM FIELDS   |
+    |---|---|---|---|
+    |...   |...   |...   |...   |
+
 # manual
 We give two examples of creating queries (`com.example.envers.audited.domain.customer.history.repository.CustomerHistoryRepository`):
 * `wasEntityDeletedBy`
