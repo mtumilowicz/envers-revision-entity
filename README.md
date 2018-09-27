@@ -25,13 +25,13 @@ This revision entity must have at least two properties:
 * `long`/`j.u.Date`- valued property, annotated with `@RevisionTimestamp`. 
 Value of this property will be automatically set by Envers.
 
-_Remark_: You can either add these properties to your entity, or extend 
+_Remark_: You can either add these properties to your revision entity, or extend 
 `org.hibernate.envers.DefaultRevisionEntity`, which already has those two properties.
 
 To fill the revision entity with additional data, you'll need to implement the 
 `org.jboss.envers.RevisionListener` interface. 
 Its `newRevision` method will be called when a new revision is created, before persisting the revision entity. 
-The implementation should be stateless and thread-safe. The listener then has to be attached to the revisions 
+The implementation should be stateless and thread-safe. The listener then has to be attached to the revision 
 entity by specifying it as a parameter to the `@RevisionEntity` annotation.
 
 * RevisionEntity (`REVINFO`)
